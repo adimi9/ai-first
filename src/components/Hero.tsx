@@ -26,16 +26,11 @@ const Hero = () => {
           {/* Main Heading */}
           <h1 className="mt-14 text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-tight">
             <span className="block">
-              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                AI-First 
-                </span>{" "}
-                Movement
-                <span className="block mt-4 text-2xl md:text-3xl lg:text-4xl font-medium italic text-blue-300">
-                  Are you READY to join us as an{' '}
-                  <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold not-italic">
-                    AI-First
-                  </span>{' '}
-                  mover?
+              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent mb-8">
+                SCG AI-First 
+                </span>
+                <span className="block mt-4 text-2xl md:text-3xl lg:text-4xl font-medium">
+                  Be part of this 90-day sprint to transform SCG with AI! 
                 </span>
               </span>
           </h1>

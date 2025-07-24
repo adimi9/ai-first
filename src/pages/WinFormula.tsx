@@ -38,7 +38,7 @@ const WinFormula = () => {
                 <div className="text-3xl font-extrabold text-cyan-400">30%</div>
               </div>
               <p className="text-gray-300 text-sm sm:text-base">
-                How insightful, relevant, and correct is the final product?
+                How insightful, relevant, and accurate is the output?
               </p>
             </div>
 
@@ -61,7 +61,7 @@ const WinFormula = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 text-white font-bold text-xl">
                   <Users className="h-5 w-5 text-purple-400" />
-                  Officers’ Choice
+                  User Adoption
                 </div>
                 <div className="text-3xl font-extrabold text-purple-400">30%</div>
               </div>

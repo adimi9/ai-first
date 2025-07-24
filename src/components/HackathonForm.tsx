@@ -260,7 +260,7 @@ const HackathonForm = () => {
     <section id="hackathon" className="py-20 bg-black">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">🚀 Join the AI Sprint!</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">🚀 Join the AI Sprint 1!</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto text-center">
             Form your team, select a challenge, and get ready to innovate with AI at SCG.
           </p>

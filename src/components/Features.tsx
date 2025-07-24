@@ -88,10 +88,15 @@ const Features = () => {
         <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 rounded-2xl p-8 md:p-12 border border-gray-800 shadow-2xl">
           <div className="text-center">
             <h3 className="text-3xl font-bold text-white mb-4">
-              It's time to {""}
+              It's time to join us as an {" "}
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                AiCCELERATE.
+                AI-First
               </span>
+              <span className="text-white">
+              {" "} Mover
+              </span>
+
+
             </h3>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Connect with us on Slack for the latest updates!</p>

@@ -47,7 +47,7 @@ const Header = () => {
           >
             <img
               src="/websitelogo_new.png"
-              alt="SCG AIccelerate Logo"
+              alt="SCG AIFirst Logo"
               className="w-12 h-14 sm:w-16 sm:h-18 md:w-24 md:h-28 object-contain"
             />
             <span className="font-bold text-sm sm:text-lg md:text-xl">
@@ -68,10 +68,10 @@ const Header = () => {
             </button>
 
             <Link
-              to="/case-studies"
+              to="/win-formula"
               className="font-bold text-lg text-gray-300 hover:text-white transition-colors"
             >
-              Featured Case Studies
+              How You Win
             </Link>
 
             <Link

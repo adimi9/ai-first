@@ -53,7 +53,7 @@ const Header = () => {
             <span className="font-bold text-sm sm:text-lg md:text-xl">
               <span className="text-white"> SCG </span>
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                AiCCELERATE
+                AI-First
               </span>
             </span>
           </Link>

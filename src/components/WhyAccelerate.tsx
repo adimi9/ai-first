@@ -15,34 +15,45 @@ const WhyAccelerate = () => {
     <>
       <div className="h-6 bg-gradient-to-b from-black to-[#0B1120]" />
 
-      {/* Main Section - Fixed mobile responsiveness */}
-      <section className="bg-gray-900 px-4 sm:px-6 py-12 sm:py-20 text-white overflow-x-hidden">
+      <section className="bg-gray-900 px-2 sm:px-6 py-12 sm:py-20 text-white overflow-x-hidden">
         <div className="max-w-7xl mx-auto space-y-12 sm:space-y-20">
-          {/* First section - Made mobile responsive */}
-          <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-              Why {' '}
+          <div className="text-center mx-auto">
+            <h5 className="text-3xl sm:text-4xl md:text-5xl lg:text-8xl font-bold mb-4 sm:mb-6 leading-tight">
+              Why{'   '}
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
                 AI-FIRST
               </span>
-              
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 leading-relaxed px-2">
-              <span className="md:text-2xl bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text font-bold text-transparent"> AI-First </span>
-              is a dedicated hackathon for{' '}
-              <span className="font-bold">
-                SCG
-              </span>
-              , empowering you to explore how AI can help us work smarter. It's
-              an opportunity to rethink daily tasks and focus on what truly
-              matters —
-              <br className="hidden sm:block" />
-              <span className="text-lg sm:text-xl md:text-3xl font-bold block mt-2">Strategic and High-Impact Work.</span>
+            </h5>
+
+            <p className="text-xl sm:text-2xl font-semibold text-gray-100 leading-snug mb-6 px-2">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent font-bold">
+                AI-First
+              </span>{' '}
+              isn’t just a hackathon — it’s SCG’s <span className="text-white font-bold whitespace-nowrap">90-day sprint</span> to redefine how we work.
             </p>
+
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-4 sm:mb-6 leading-relaxed px-2">
+              AI tools are everywhere.
+              <br className="hidden sm:block" />
+              Officers are already experimenting — switching between <strong>ChatGPT</strong>, <strong>Pair</strong>, and even paying <span className="whitespace-nowrap">out-of-pocket</span>. <br />
+              But without <span className="text-white font-medium">clear, repeatable workflows</span>, progress stalls — and frustration sets in.
+            </p>
+
+            <p className="text-lg sm:text-xl md:text-2xl font-semibold text-white mb-6 px-2">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent font-bold">
+                AI-First
+              </span>{' '}
+              is your chance to lead.
+              <br />
+              Turn trial-and-error into{' '}
+              <span className="underline underline-offset-4 decoration-blue-400">repeatable success</span>{' '}
+              others can learn from.
+            </p>
+
             
           </div>
-          </div>
-          </section>
+        </div>
+      </section>
     </>
   );
 };

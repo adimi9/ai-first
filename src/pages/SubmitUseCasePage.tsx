@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import HackathonForm from '../components/HackathonForm'
+import HackathonForm from '../components/HackV2'
 
 const SubmitUseCasePage = () => {
   return (

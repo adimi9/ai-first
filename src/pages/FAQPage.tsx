@@ -1,45 +1,34 @@
 import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+// Assuming Header and Footer components are in '../components/'
+import Header from '../components/Header'; // Adjust path if necessary based on your project structure
+import Footer from '../components/Footer';// Adjust path if necessary based on your project structure
 
 export default function FAQPage() {
   const faqs = [
     {
-      question: 'Is it okay if I’m unavailable for a few days in July to September?',
-      answer: 'Yes, flexibility is built into the program. You can still join even if you’re away for a few days—just communicate with your team early.'
+      question: 'How do I form a team?',
+      answer: 'You can form a team of 1 leader and up to 2 additional members. You can sign up with an existing team or as an individual. We will facilitate networking sessions to help solo participants find teammates.'
     },
     {
-      question: 'Can I join as an individual or do I need a team?',
-      answer: 'Both are welcome! You can sign up solo and form a team later, or register as a full team if you already have one.'
+      question: 'Can I join as an individual?',
+      answer: 'Yes, absolutely! You are welcome to sign up as an individual. We will organize team formation activities to help you connect with other participants and form a team for the sprint.'
     },
     {
-      question: 'How do I form a team during the program?',
-      answer: 'We facilitate team formation through mixers and networking activities, so you’ll have many chances to find people to work with.'
+      question: 'What are the expectations for work commitment? Am I given protected time?',
+      answer: 'The AI Sprint requires a commitment of approximately [X] hours per week, which includes workshops, mentorship sessions, and team collaboration. While protected time is not formally allocated, we encourage participants to discuss flexibility with their managers to dedicate time to the sprint activities.'
     },
     {
-      question: 'Do I need to be physically in office every day?',
-      answer: 'No. While there are key events that are in-person, most collaboration can happen remotely unless otherwise specified.'
+      question: 'Who can I reach out to if I have any questions?',
+      answer: 'Throughout the program, you will have access to dedicated mentors, technical experts, and community leads. You can reach out to them via our dedicated Slack channels or during scheduled office hours for any questions or support you need.'
     },
     {
-      question: 'Where can I explore problem statements to work on?',
-      answer: 'Problem statements are shared during onboarding. You’ll get guidance on how to choose one that matches your interests and skills.'
+      question: 'What are the tools that I can get access to?',
+      answer: 'Participants will gain access to a suite of AI development tools and platforms, including [mention specific tools, e.g., cloud AI services, specialized IDEs, data analysis platforms]. Details will be provided during the onboarding process.'
     },
     {
-      question: 'What’s required for the final submission?',
-      answer: 'Finale submissions usually include a demo, a brief pitch, and supporting documentation like slides or a GitHub link.'
-    },
-    {
-      question: 'What makes this different from other GovTech hackathons?',
-      answer: 'This program is longer-term, more team-based, and gives you direct access to public sector mentors and real-world problems.'
-    },
-    {
-      question: 'Who is behind the AI-Accelerator program?',
-      answer: 'AI-volution is run by GovTech SCG Divison, supported by mentors, problem sponsors, and tech enablers from the public sector.'
-    },
-    {
-      question: 'How do I get help if I’m stuck?',
-      answer: 'Mentors and community leads are available throughout the program to guide you—just reach out on Slack or during office hours.'
-    },
+      question: 'What is the data sensitivity we need to work with?',
+      answer: 'All provided datasets are anonymized and non-sensitive, suitable for public sector innovation. Participants are strictly prohibited from using or processing any sensitive or classified data during the sprint. Guidelines on data handling and security will be thoroughly covered during onboarding.'
+    }
   ];
 
   return (

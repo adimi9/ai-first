@@ -295,10 +295,10 @@ const HackathonForm = () => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">
-            🚀 Submit Your Problem Statement
+            🚀 Join the AI Sprint!
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto text-center">
-            Ready to innovate? Share the challenge you want to tackle and help shape the future of human-AI collaboration at SCG.
+            Form your team, select a challenge, and get ready to innovate with AI at SCG.
           </p>
           {userId && (
             <p className="text-sm text-gray-500 text-center mt-4">
@@ -535,17 +535,17 @@ const HackathonForm = () => {
                 {isSubmitting ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                    <span>Submitting...</span>
+                    <span>Joining...</span>
                   </>
                 ) : submitStatus === 'success' ? (
                   <>
                     <CheckCircle className="h-5 w-5" />
-                    <span>Submitted Successfully!</span>
+                    <span>Successfully Joined!</span>
                   </>
                 ) : (
                   <>
                     <Send className="h-5 w-5" />
-                    <span>Submit Problem Statement</span>
+                    <span>Join the Sprint!</span>
                   </>
                 )}
               </button>

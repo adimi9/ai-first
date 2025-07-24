@@ -31,7 +31,6 @@ const HomePage = () => {
       <Header />
       <Hero />
       <WhyAccelerate/>
-      <Prizes />
       <Features />
       <Footer />
     </>

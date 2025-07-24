@@ -1,8 +1,12 @@
 import React from 'react';
 import { Sparkles, Trophy, Users, GaugeCircle } from 'lucide-react';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const WinFormula = () => {
   return (
+    <>
+    <Header />
     <section className="relative bg-black text-white px-6 py-16 sm:py-24 overflow-hidden">
       {/* Glowing Background Blobs */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -100,6 +104,8 @@ const WinFormula = () => {
         </div>
       </div>
     </section>
+    <Footer />
+    </>
   );
 };
 

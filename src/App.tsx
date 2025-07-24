@@ -7,7 +7,6 @@ import DriveInnovationPage from './pages/DriveInnovationPage'
 import WorkSmarterPage from './pages/WorkSmarterPage'
 import FAQPage from './pages/FAQPage'
 import CaseStudies from './pages/CaseStudies'
-import ProjectsSubmittedPage from './pages/ProjectsSubmittedPage'
 import DepartmentDashboard from './components/DepartmentDashboard'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import CaseStudiesPage from './pages/CaseStudies';
@@ -17,6 +16,9 @@ import CaseStudyDetailPage from './pages/CaseStudyDetailPage'
 // timeline page
 import TimelinePage from './pages/TimelinePage'
 import WinFormula from './pages/WinFormula'
+
+// teams formed page 
+import TeamsFormedPage from './pages/TeamsFormedPage'
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
           <Route path="/drive-innovation" element={<DriveInnovationPage />} />
           <Route path="/work-smarter" element={<WorkSmarterPage />} />
           <Route path="/faq" element={<FAQPage />} />
-          <Route path="/projects-submitted" element={<ProjectsSubmittedPage />} />
+          <Route path="/teams-formed" element={<TeamsFormedPage />} />
           <Route path="/project/:id" element={<ProjectDetailPage />} />
           <Route path="/dashboard" element={<DepartmentDashboard />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />

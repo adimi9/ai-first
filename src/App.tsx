@@ -16,6 +16,7 @@ import CaseStudyDetailPage from './pages/CaseStudyDetailPage'
 
 // timeline page
 import TimelinePage from './pages/TimelinePage'
+import WinFormula from './pages/WinFormula'
 
 
 function App() {
@@ -34,7 +35,10 @@ function App() {
           <Route path="/project/:id" element={<ProjectDetailPage />} />
           <Route path="/dashboard" element={<DepartmentDashboard />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
+          <Route path="/win-formula" element={<WinFormula/>} />
+
           <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
+
 
           {/* Timeline Page */}
           <Route path="/timeline" element={<TimelinePage />} />

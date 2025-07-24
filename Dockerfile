@@ -1,8 +1,20 @@
-FROM gdssingapore/airbase:node-22
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV SKIP_ENV_VALIDATION=1
-COPY package.json package-lock.json ./
+FROM node:18
+
+COPY package.json package-lock.json* ./
+
 RUN npm install
-COPY . ./
+
+WORKDIR /app
+
+COPY . .
+
 RUN npm run build
-CMD [ "npm", "run", "start" ]
+
+# Install serve globally
+RUN npm install -g serve
+
+# Expose port 5000 (default serve port)
+EXPOSE 3000
+
+# Serve the built files from /app/dist
+CMD ["serve", "-s", "dist", "-l", "3000"]

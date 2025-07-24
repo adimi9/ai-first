@@ -2,7 +2,7 @@ include:
   - project: innersource/sgts/runtime/airbase/airbase-pipeline
     ref: v1
     file: baseline.gitlab-ci.yml
-
+ 
 review:
   extends: .airbase-deploy
   stage: test
@@ -15,7 +15,8 @@ review:
     deployment_tier: testing
     url: $DYNAMIC_ENVIRONMENT_URL
     on_stop: stop_review
-
+    auto_stop_in: 1 day
+ 
 stop_review:
   extends: .airbase-destroy
   stage: test
@@ -29,7 +30,7 @@ stop_review:
     name: review/$AIRBASE_ENVIRONMENT
     deployment_tier: testing
     action: stop
-
+ 
 production:
   extends: .airbase-deploy
   stage: deploy
@@ -42,7 +43,7 @@ production:
     deployment_tier: staging
     url: $DYNAMIC_ENVIRONMENT_URL
     on_stop: stop_production
-
+ 
 stop_production:
   extends: .airbase-destroy
   stage: deploy

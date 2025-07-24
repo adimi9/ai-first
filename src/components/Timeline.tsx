@@ -1,120 +1,176 @@
-import { Brain, Users, Target, Search, Lightbulb, Code, Trophy } from 'lucide-react'
+import React, { useEffect, useRef, useState } from 'react';
+// Removed Disclosure and Transition as they are no longer needed for non-collapsible content
+// Removed ChevronUpIcon as it's for the expand/collapse indicator
 
 const timeline = [
     {
-        phase: 'Discover & Team Up',
-        period: 'Jul 1 - Jul 25',
-        description: 'Identify real business problems you face daily, form your team, and submit your challenge. Focus on impact, not technology - what frustrates you most at work?',
-        icon: Search,
+        phase: 'Closer: Problem Statements & Team Formation',
+        period: 'Jul 30 (Wed)',
+        description: [
+            'Problem statements will be officially announced.',
+            'Form your teams and select the problem statement you\'re most passionate about!',
+            'This is the kick-off for your AI journey.'
+        ],
+        iconEmoji: '📢',
         status: 'upcoming'
     },
     {
-        phase: 'Learn & Validate',
-        period: 'Jul 31 - Aug 1',
-        description: 'Attend hands-on AI workshops to discover which tools can solve your problem. Validate your approach and confirm it will make a real difference.',
-        icon: Lightbulb,
+        phase: 'Office Hours (Round 1)',
+        period: 'Aug 7 (Thu)',
+        description: [
+            'Interested participants can drop in to ask questions about the problem statements.',
+            'Get clarification on rules, resources, and team dynamics.',
+            'Expert mentors will be available to guide you.'
+        ],
+        iconEmoji: '💬',
         status: 'upcoming'
     },
     {
-        phase: 'Build & Test',
-        period: 'Aug 1 - Sep 5',
-        description: 'Build your AI solution with expert support! Explore data, develop your prototype, test with real users, and iterate based on feedback.',
-        icon: Code,
+        phase: 'AMA on AI & Additional Problem Statements Workshop',
+        period: 'Aug 11 Week',
+        description: [
+            'Join an Ask-Me-Anything (AMA) session with AI experts.',
+            'Discover potential new problem statements during a dedicated workshop.',
+            'Deepen your understanding of AI applications.'
+        ],
+        iconEmoji: '🤖',
         status: 'upcoming'
     },
     {
-        phase: 'Showcase & Win',
-        period: 'Sep 6 - 26',
-        description: 'Polish your demo, get feedback from other teams, and showcase your solution to leadership. Top solutions get developed and put into production!',
-        icon: Trophy,
+        phase: 'Office Hours (Round 2)',
+        period: 'Aug 22 (Fri)',
+        description: [
+            'Another dedicated session for you to drop in and ask any lingering questions.',
+            'Refine your project scope and get feedback on early ideas.',
+            'Don\'t miss this chance for personalized guidance.'
+        ],
+        iconEmoji: '💬',
+        status: 'upcoming'
+    },
+    {
+        phase: 'Closers: Live Competition',
+        period: 'Aug 25 Week',
+        description: [
+            'The pinnacle of the program: live demonstrations!',
+            'Top 3 teams for each problem statement will present their solutions.',
+            'Showcase your innovation and compete for recognition.'
+        ],
+        iconEmoji: '🏆',
         status: 'upcoming'
     }
-]
+];
 
 const Timeline = () => {
+    const [visibleItems, setVisibleItems] = useState<{ [key: string]: boolean }>({});
+    const timelineRefs = useRef<(HTMLElement | null)[]>([]);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    const targetElement = entry.target as HTMLElement; // Cast entry.target to HTMLElement
+                    if (entry.isIntersecting) {
+                        setVisibleItems((prev) => ({
+                            ...prev,
+                            [targetElement.dataset.index as string]: true,
+                        }));
+                    } else {
+                        // Optional: Reset visibility when element is out of view for re-animation on scroll-back
+                        setVisibleItems((prev) => ({
+                            ...prev,
+                            [targetElement.dataset.index as string]: false,
+                        }));
+                    }
+                });
+            },
+            { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        timelineRefs.current.forEach((ref) => {
+            if (ref) {
+                observer.observe(ref);
+            }
+        });
+
+        return () => {
+            timelineRefs.current.forEach((ref) => {
+                if (ref) {
+                    observer.unobserve(ref);
+                }
+            });
+        };
+    }, []);
+
     return (
-        <section id="timeline" className="px-6 py-20 bg-gray-900 bg-opacity-50">
-            <div className="max-w-7xl mx-auto">
+        <section id="timeline" className="px-6 py-20 bg-gray-950">
+            <style>{`
+                /* General animation for timeline items */
+                .timeline-item-hidden {
+                    opacity: 0;
+                    transform: translateY(30px); /* Slide up effect */
+                    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+                }
+                .timeline-item-visible {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            `}</style>
+            <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-16">
                     <h2 className="text-4xl font-bold text-white mb-6">
                         <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                            AiCCELERATE {"  "}
-                        </span> 
+                            AiCCELERATE {" "}
+                        </span>
                         Timeline
                     </h2>
-                    <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                        Our structured initiative to accelerating SCG with AI
+                    <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                        Our structured initiative to accelerating SCG with AI. Dive into key dates and exciting events!
                     </p>
                 </div>
 
-                <div className="relative">
-                    {/* Desktop Timeline Line - centered */}
-                    <div className="absolute left-1/2 transform -translate-x-0.5 top-0 bottom-0 w-2 bg-gradient-to-b from-blue-500 to-purple-600 hidden md:block"></div>
-                    
-                    {/* Mobile Timeline Line - left side */}
-                    <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 md:hidden"></div>
+                <div className="relative pl-0 md:pl-0"> {/* Reset left padding for the container */}
+                    {/* Vertical Timeline Line */}
+                    {/* Adjusted 'top' value to start slightly higher and be hidden by the first orb */}
+                    <div className="absolute left-[calc(2rem-2px)] top-[1.1rem] bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full md:left-[calc(3.5rem-2px)] md:top-[1.9rem]"></div>
 
                     <div className="space-y-12">
                         {timeline.map((phase, index) => {
-                            const IconComponent = phase.icon
-                            const isEven = index % 2 === 0
-                            
+                            const isVisible = visibleItems[index];
+
                             return (
-                                <div key={index} className="relative">
-                                    {/* Desktop Layout - Alternating */}
-                                    <div className="hidden md:flex items-center">
-                                        {isEven ? (
-                                            // Left side content for even items
-                                            <>
-                                                <div className="w-1/2 pr-8">
-                                                    <div className="bg-gray-800 bg-opacity-50 rounded-xl p-8 text-right">
-                                                        <h3 className="text-2xl font-bold text-white mb-2">{phase.phase}</h3>
-                                                        <p className="text-sm mb-4" style={{ color: '#dd8948' }}>{phase.period}</p>
-                                                        <p className="text-gray-300">{phase.description}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center relative z-10 mx-auto">
-                                                    <IconComponent className="w-8 h-8 text-white" />
-                                                </div>
-                                                <div className="w-1/2"></div>
-                                            </>
-                                        ) : (
-                                            // Right side content for odd items
-                                            <>
-                                                <div className="w-1/2"></div>
-                                                <div className="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center relative z-10 mx-auto">
-                                                    <IconComponent className="w-8 h-8 text-white" />
-                                                </div>
-                                                <div className="w-1/2 pl-8">
-                                                    <div className="bg-gray-800 bg-opacity-50 rounded-xl p-8">
-                                                        <h3 className="text-2xl font-bold text-white mb-2">{phase.phase}</h3>
-                                                        <p className="text-sm mb-4" style={{ color: '#dd8948' }}>{phase.period}</p>
-                                                        <p className="text-gray-300">{phase.description}</p>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        )}
+                                <div
+                                    key={index}
+                                    ref={(el) => (timelineRefs.current[index] = el)}
+                                    data-index={index}
+                                    className={`relative flex items-start ${isVisible ? 'timeline-item-visible' : 'timeline-item-hidden'}`}
+                                >
+                                    {/* Orb for the timeline point - positioned to be next to the rod */}
+                                    <div className="absolute left-4 top-0 w-9 h-9 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center z-10 shadow-md md:w-16 md:h-16 md:left-9">
+                                        <span className="text-xl md:text-3xl" role="img" aria-label={phase.phase}>
+                                            {phase.iconEmoji}
+                                        </span>
                                     </div>
 
-                                    {/* Mobile Layout - Simple stacked with line connection */}
-                                    <div className="md:hidden flex items-start space-x-4 relative">
-                                        <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0 relative z-10">
-                                            <IconComponent className="w-6 h-6 text-white" />
+                                    {/* Timeline Card - adjusted ml to account for emoji orb and rod */}
+                                    <div className="ml-[4.5rem] md:ml-[7.5rem] bg-gray-800 rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl border border-gray-700 w-full">
+                                        <div className="flex flex-col mb-4"> {/* Container for date and phase */}
+                                            <p className="text-purple-400 text-base md:text-lg font-medium mb-1">{phase.period}</p> {/* Date styling */}
+                                            <h3 className="text-white font-bold text-xl md:text-2xl">{phase.phase}</h3> {/* Phase title styling */}
                                         </div>
-                                        <div className="flex-1 bg-gray-800 bg-opacity-50 rounded-xl p-6">
-                                            <h3 className="text-lg font-bold text-white mb-2">{phase.phase}</h3>
-                                            <p className="text-sm mb-3" style={{ color: '#dd8948' }}>{phase.period}</p>
-                                            <p className="text-gray-300 text-sm">{phase.description}</p>
-                                        </div>
+                                        <ul className="list-disc pl-5 space-y-2 text-gray-300 text-base md:text-lg">
+                                            {phase.description.map((item, descIndex) => (
+                                                <li key={descIndex}>{item}</li>
+                                            ))}
+                                        </ul>
                                     </div>
                                 </div>
-                            )
+                            );
                         })}
                     </div>
                 </div>
             </div>
         </section>
-    )
-}
+    );
+};
 
-export default Timeline;    
+export default Timeline;

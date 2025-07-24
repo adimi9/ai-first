@@ -14,6 +14,9 @@ import CaseStudiesPage from './pages/CaseStudies';
 import ScrollToTop from './components/ui/ScrollToTop'
 import CaseStudyDetailPage from './pages/CaseStudyDetailPage'
 
+// timeline page
+import TimelinePage from './pages/TimelinePage'
+
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
           <Route path="/dashboard" element={<DepartmentDashboard />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
+
+          {/* Timeline Page */}
+          <Route path="/timeline" element={<TimelinePage />} />
           
 
 

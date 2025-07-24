@@ -31,9 +31,14 @@ const Hero = () => {
                 </span>{" "}
                 Movement
                 </span>
-                <span className="block mt-4 text-2xl md:text-3xl lg:text-4xl font-medium text-white">
-                Are you READY to join us as an AI-First mover?
-                </span>
+                <span className="block mt-4 text-2xl md:text-3xl lg:text-4xl font-medium italic text-blue-300">
+  Are you READY to join us as an{' '}
+  <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold not-italic">
+    AI-First
+  </span>{' '}
+  mover?
+</span>
+
           </h1>
 
       

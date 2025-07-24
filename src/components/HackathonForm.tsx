@@ -1,13 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { Send, CheckCircle, AlertCircle, Plus, Trash2, Users, Lightbulb, Database } from 'lucide-react';
-import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
+import { Send, CheckCircle, AlertCircle, Plus, Trash2, Users, Lightbulb } from 'lucide-react';
+import { db } from '../firebase';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-// Declare global variables for TypeScript
-declare const __app_id: string | undefined;
-declare const __firebase_config: string | undefined;
-declare const __initial_auth_token: string | undefined;
+interface TeamMember {
+  name: string;
+  email: string;
+}
+
+interface TeamLeader {
+  name: string;
+  email: string;
+}
+
+interface FormData {
+  teamName: string;
+  teamLeader: TeamLeader;
+  teamMembers: TeamMember[]; // These are the *additional* optional members
+  chosenProblemId: string;
+  dataSource: 'standard' | 'own' | '';
+}
 
 // Define the problem statements as provided in the previous turn
 const problemStatements = [
@@ -34,92 +46,12 @@ const problemStatements = [
   },
 ];
 
-// Interface for a single team member
-interface TeamMember {
-  name: string;
-  role: string; // Role for all members
-  email: string;
-}
-
-// Interface for the entire form data
-interface FormData {
-  teamName: string;
-  teamMembers: TeamMember[]; // First member is the leader
-  chosenProblemId: string; // ID of the selected problem (A, B, or C)
-  problemStatementDetails: { // Store full details of chosen problem for submission
-    id: string;
-    title: string;
-    input: string;
-    workflow: string;
-    goal: string;
-  } | null;
-  dataSource: 'standard' | 'own' | ''; // New field for data source
-}
-
 const HackathonForm = () => {
-  // State for Firebase and Auth
-  const [db, setDb] = useState<any>(null);
-  const [auth, setAuth] = useState<any>(null);
-  const [userId, setUserId] = useState<string | null>(null); // User ID for Firestore path
-
-  // Firebase Initialization and Auth
-  useEffect(() => {
-    try {
-      // Access global variables provided by the environment
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-      const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-      if (Object.keys(firebaseConfig).length === 0) {
-        console.error("Firebase config is not provided. Cannot initialize Firebase.");
-        return;
-      }
-
-      const app = initializeApp(firebaseConfig);
-      const firestoreDb = getFirestore(app);
-      const firebaseAuth = getAuth(app);
-
-      setDb(firestoreDb);
-      setAuth(firebaseAuth);
-
-      // Sign in with custom token or anonymously
-      const signIn = async () => {
-        try {
-          if (initialAuthToken) {
-            await signInWithCustomToken(firebaseAuth, initialAuthToken);
-          } else {
-            await signInAnonymously(firebaseAuth);
-          }
-        } catch (error) {
-          console.error("Firebase authentication error:", error);
-        }
-      };
-
-      signIn();
-
-      // Listen for auth state changes to get the user ID
-      const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
-        if (user) {
-          setUserId(user.uid);
-        } else {
-          // If for some reason the user logs out or token expires, generate a random ID
-          setUserId(crypto.randomUUID());
-        }
-      });
-
-      // Cleanup subscription on unmount
-      return () => unsubscribe();
-
-    } catch (error) {
-      console.error("Failed to initialize Firebase:", error);
-    }
-  }, []); // Run only once on component mount
-
   const [formData, setFormData] = useState<FormData>({
     teamName: '',
-    teamMembers: [{ name: '', role: 'Team Leader', email: '' }], // First member is leader
+    teamLeader: { name: '', email: '' }, // Team Leader is now distinct
+    teamMembers: [], // Optional team members, initialized as empty
     chosenProblemId: '',
-    problemStatementDetails: null,
     dataSource: '',
   });
 
@@ -127,48 +59,72 @@ const HackathonForm = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<any>({});
 
-  // Function to validate the form
   const validateForm = (): boolean => {
     const newErrors: any = {};
 
-    if (!formData.teamName.trim()) newErrors.teamName = 'Team name is required.';
-    if (!formData.chosenProblemId) newErrors.chosenProblemId = 'Please select a problem statement.';
-    if (!formData.dataSource) newErrors.dataSource = 'Please select your data source.';
+    // Validate Team Name (Compulsory)
+    if (!formData.teamName.trim()) {
+      newErrors.teamName = 'Team name is required';
+    }
 
-    // Validate team members (Leader + up to 2 members)
+    // Validate Team Leader (Compulsory)
+    const leaderErrors: any = {};
+    if (!formData.teamLeader.name.trim()) {
+      leaderErrors.name = 'Team leader name is required.';
+    }
+    if (!formData.teamLeader.email.trim()) {
+      leaderErrors.email = 'Team leader email is required.';
+    } else if (!/\S+@\S+\.\S+/.test(formData.teamLeader.email)) {
+      leaderErrors.email = 'Please enter a valid email address for the team leader.';
+    }
+    if (Object.keys(leaderErrors).length > 0) {
+      newErrors.teamLeader = leaderErrors;
+    }
+
+    // Team members are NOT compulsory, so no validation needed here for their presence.
+    // If you wanted to validate *if they are entered*, ensuring they are valid:
     const teamMemberErrors: any[] = [];
     formData.teamMembers.forEach((member, index) => {
       const memberErrors: any = {};
-      if (!member.name.trim()) memberErrors.name = 'Name is required.';
-      if (!member.role.trim()) memberErrors.role = 'Role is required.';
-      if (!member.email.trim()) {
-        memberErrors.email = 'Email is required.';
-      } else if (!/\S+@\S+\.\S+/.test(member.email)) {
-        memberErrors.email = 'Please enter a valid email address.';
+      if (member.name.trim() || member.email.trim()) { // Only validate if either field is entered
+        if (!member.name.trim()) memberErrors.name = 'Name is required';
+        if (!member.email.trim()) {
+          memberErrors.email = 'Email is required';
+        } else if (!/\S+@\S+\.\S+/.test(member.email)) {
+          memberErrors.email = 'Please enter a valid email address';
+        }
       }
       teamMemberErrors[index] = memberErrors;
     });
-
+    // Add member errors to newErrors only if there are actual errors, not just empty optional fields
     if (teamMemberErrors.some(errors => Object.keys(errors).length > 0)) {
       newErrors.teamMembers = teamMemberErrors;
+    }
+
+
+    // Validate Chosen Problem ID (Compulsory)
+    if (!formData.chosenProblemId) {
+      newErrors.chosenProblemId = 'Problem statement title is required';
+    }
+
+    // Validate Data Source (Compulsory)
+    if (!formData.dataSource) {
+      newErrors.dataSource = 'Please select a data source.';
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!db || !userId) {
-      console.error("Firestore not initialized or user not authenticated.");
-      setSubmitStatus('error');
-      return;
-    }
-
     if (!validateForm()) {
-      console.log("Form validation failed:", errors);
+      // Scroll to the first error if validation fails
+      const firstErrorElement = document.querySelector('.text-red-400');
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
@@ -176,53 +132,39 @@ const HackathonForm = () => {
     setSubmitStatus('idle');
 
     try {
-      // Normalize team name and build custom doc ID
       const baseDocId = formData.teamName.trim().toLowerCase().replace(/\s+/g, '_');
-      const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 12); // e.g. 202506251405
+      const timestamp = new Date().toISOString().replace(/[-:.TZ]/g, '').slice(0, 12);
       const finalDocId = `${baseDocId}-${timestamp}`;
 
-      // Determine the Firestore collection path
-      // For private data, use /artifacts/{appId}/users/{userId}/{your_collection_name}
-      const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-      const collectionPath = `artifacts/${appId}/users/${userId}/hackathonSubmissions`;
-
-      // Save to Firestore
-      await setDoc(doc(db, collectionPath, finalDocId), {
+      await setDoc(doc(db, 'hackathonSubmissions', finalDocId), {
         ...formData,
         submittedAt: new Date(),
-        // Ensure problemStatementDetails is correctly set at submission
-        problemStatementDetails: problemStatements.find(p => p.id === formData.chosenProblemId) || null,
-        // Store the actual userId for reference
-        submittedByUserId: userId
       });
 
       setSubmitStatus('success');
 
-      // Reset form after 3 seconds
       setTimeout(() => {
         setFormData({
           teamName: '',
-          teamMembers: [{ name: '', role: 'Team Leader', email: '' }],
+          teamLeader: { name: '', email: '' },
+          teamMembers: [],
           chosenProblemId: '',
-          problemStatementDetails: null,
           dataSource: '',
         });
         setSubmitStatus('idle');
-        setErrors({}); // Clear errors on successful reset
       }, 3000);
-
     } catch (error) {
-      console.error("Error submitting form to Firestore:", error);
+      console.error('Error submitting form to Firestore:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  // Handle general input changes
+  // handle general input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     // Clear error when user starts typing
     if (errors[name]) {
@@ -230,13 +172,26 @@ const HackathonForm = () => {
     }
   };
 
-  // Handle team member specific changes
+  // handle team leader specific changes
+  const handleTeamLeaderChange = (field: keyof TeamLeader, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      teamLeader: { ...prev.teamLeader, [field]: value },
+    }));
+    if (errors.teamLeader && errors.teamLeader[field]) {
+      setErrors((prev: any) => ({
+        ...prev,
+        teamLeader: { ...prev.teamLeader, [field]: undefined },
+      }));
+    }
+  };
+
+  // handle team member specific changes (for optional members)
   const handleTeamMemberChange = (index: number, field: keyof TeamMember, value: string) => {
     const updatedMembers = [...formData.teamMembers];
     updatedMembers[index] = { ...updatedMembers[index], [field]: value };
-    setFormData(prev => ({ ...prev, teamMembers: updatedMembers }));
+    setFormData((prev) => ({ ...prev, teamMembers: updatedMembers }));
 
-    // Clear team member errors when user starts typing
     if (errors.teamMembers && errors.teamMembers[index] && errors.teamMembers[index][field]) {
       const updatedErrors = { ...errors };
       updatedErrors.teamMembers[index] = { ...updatedErrors.teamMembers[index], [field]: undefined };
@@ -244,67 +199,71 @@ const HackathonForm = () => {
     }
   };
 
-  // Add a new team member
+  // add a new team member
   const addTeamMember = () => {
-    // Max 3 members total (1 leader + 2 members)
-    if (formData.teamMembers.length < 3) {
-      setFormData(prev => ({
+    if (formData.teamMembers.length < 2) { // Max 2 additional members
+      setFormData((prev) => ({
         ...prev,
-        teamMembers: [...prev.teamMembers, { name: '', role: '', email: '' }]
+        teamMembers: [...prev.teamMembers, { name: '', email: '' }],
       }));
     }
   };
 
   // Remove a team member
   const removeTeamMember = (index: number) => {
-    // Cannot remove the leader (first member)
-    if (formData.teamMembers.length > 1 && index !== 0) {
-      const updatedMembers = formData.teamMembers.filter((_, i) => i !== index);
-      setFormData(prev => ({ ...prev, teamMembers: updatedMembers }));
+    const updatedMembers = formData.teamMembers.filter((_, i) => i !== index);
+    setFormData((prev) => ({ ...prev, teamMembers: updatedMembers }));
 
-      // Clear errors for removed member
-      if (errors.teamMembers) {
-        const updatedErrors = { ...errors };
-        updatedErrors.teamMembers = updatedErrors.teamMembers.filter((_: any, i: number) => i !== index);
-        setErrors(updatedErrors);
-      }
+    if (errors.teamMembers) {
+      const updatedErrors = { ...errors };
+      updatedErrors.teamMembers = updatedErrors.teamMembers.filter((_: any, i: number) => i !== index);
+      setErrors(updatedErrors);
     }
   };
 
   // Handle problem statement selection
   const handleProblemStatementSelect = (problemId: string) => {
-    const selectedProblem = problemStatements.find(p => p.id === problemId);
-    setFormData(prev => ({
+    const selectedProblem = problemStatements.find((p) => p.id === problemId);
+    setFormData((prev) => ({
       ...prev,
       chosenProblemId: problemId,
-      problemStatementDetails: selectedProblem || null // Store the full object
+      problemStatementDetails: selectedProblem || null,
     }));
-    // Clear error if selection is made
     if (errors.chosenProblemId) {
       setErrors((prev: any) => ({ ...prev, chosenProblemId: undefined }));
     }
   };
 
-  // Get the currently selected problem statement details for display
   const selectedProblemForDisplay = formData.chosenProblemId
-    ? problemStatements.find(p => p.id === formData.chosenProblemId)
+    ? problemStatements.find((p) => p.id === formData.chosenProblemId)
     : null;
+
+  // Determine if all compulsory fields are filled for enabling the submit button
+  const areAllCompulsoryFieldsFilled = () => {
+    // Check Team Name
+    if (!formData.teamName.trim()) return false;
+
+    // Check Team Leader
+    if (!formData.teamLeader.name.trim() || !formData.teamLeader.email.trim() || !/\S+@\S+\.\S+/.test(formData.teamLeader.email)) return false;
+
+    // Check Chosen Problem ID
+    if (!formData.chosenProblemId) return false;
+
+    // Check Data Source
+    if (!formData.dataSource) return false;
+
+    // If all checks pass, return true
+    return true;
+  };
 
   return (
     <section id="hackathon" className="py-20 bg-black">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">
-            🚀 Join the AI Sprint!
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 text-center">🚀 Join the AI Sprint!</h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto text-center">
             Form your team, select a challenge, and get ready to innovate with AI at SCG.
           </p>
-          {userId && (
-            <p className="text-sm text-gray-500 text-center mt-4">
-              Your User ID: <span className="font-mono text-gray-400">{userId}</span>
-            </p>
-          )}
         </div>
 
         <div className="bg-gray-900 rounded-2xl shadow-2xl p-8 border border-gray-800">
@@ -347,13 +306,45 @@ const HackathonForm = () => {
                 {errors.teamName && <p className="mt-1 text-sm text-red-400">{errors.teamName}</p>}
               </div>
 
-              {/* Team Members */}
+              {/* Team Leader */}
+              <div className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
+                <h4 className="text-sm font-medium text-gray-300 mb-3">Team Leader <span className="text-red-400">*</span></h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Full Name"
+                      value={formData.teamLeader.name}
+                      onChange={(e) => handleTeamLeaderChange('name', e.target.value)}
+                      className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    />
+                    {errors.teamLeader?.name && (
+                      <p className="mt-1 text-xs text-red-400">{errors.teamLeader.name}</p>
+                    )}
+                  </div>
+                  <div>
+                    <input
+                      type="email"
+                      placeholder="Email Address"
+                      value={formData.teamLeader.email}
+                      onChange={(e) => handleTeamLeaderChange('email', e.target.value)}
+                      className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    />
+                    {errors.teamLeader?.email && (
+                      <p className="mt-1 text-xs text-red-400">{errors.teamLeader.email}</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+
+              {/* Additional Team Members (Optional) */}
               <div>
                 <div className="flex items-center justify-between mb-4">
                   <label className="block text-sm font-medium text-gray-300">
-                    Team Members <span className="text-red-400">*</span> (1 Leader, max 2 additional members)
+                    Additional Team Members (max 2, optional)
                   </label>
-                  {formData.teamMembers.length < 3 && (
+                  {formData.teamMembers.length < 2 && (
                     <button
                       type="button"
                       onClick={addTeamMember}
@@ -369,21 +360,17 @@ const HackathonForm = () => {
                   {formData.teamMembers.map((member, index) => (
                     <div key={index} className="bg-gray-800/50 rounded-lg p-4 border border-gray-700">
                       <div className="flex items-center justify-between mb-3">
-                        <h4 className="text-sm font-medium text-gray-300">
-                          {index === 0 ? 'Team Leader' : `Member ${index}`}
-                        </h4>
-                        {index !== 0 && ( // Only allow removing non-leader members
-                          <button
-                            type="button"
-                            onClick={() => removeTeamMember(index)}
-                            className="text-red-400 hover:text-red-300 transition-colors"
-                          >
-                            <Trash2 className="h-4 w-4" />
-                          </button>
-                        )}
+                        <h4 className="text-sm font-medium text-gray-300">Member {index + 1}</h4>
+                        <button
+                          type="button"
+                          onClick={() => removeTeamMember(index)}
+                          className="text-red-400 hover:text-red-300 transition-colors"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
                       </div>
 
-                      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div>
                           <input
                             type="text"
@@ -394,19 +381,6 @@ const HackathonForm = () => {
                           />
                           {errors.teamMembers && errors.teamMembers[index]?.name && (
                             <p className="mt-1 text-xs text-red-400">{errors.teamMembers[index].name}</p>
-                          )}
-                        </div>
-
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="Role/Title"
-                            value={member.role}
-                            onChange={(e) => handleTeamMemberChange(index, 'role', e.target.value)}
-                            className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
-                          />
-                          {errors.teamMembers && errors.teamMembers[index]?.role && (
-                            <p className="mt-1 text-xs text-red-400">{errors.teamMembers[index].role}</p>
                           )}
                         </div>
 
@@ -457,7 +431,9 @@ const HackathonForm = () => {
                         className="h-4 w-4 text-blue-500 focus:ring-blue-500 border-gray-700 rounded-full mt-1 cursor-pointer"
                       />
                       <label htmlFor={`problem-${p.id}`} className="ml-3 block text-sm text-gray-300 cursor-pointer">
-                        <span className="font-semibold text-white">Problem {p.id}: {p.title}</span>
+                        <span className="font-semibold text-white">
+                          Problem {p.id}: {p.title}
+                        </span>
                         <p className="text-gray-400 text-xs italic">{p.goal}</p>
                       </label>
                     </div>
@@ -529,7 +505,7 @@ const HackathonForm = () => {
             <div className="pt-4">
               <button
                 type="submit"
-                disabled={isSubmitting || submitStatus === 'success' || !db || !userId}
+                disabled={isSubmitting || submitStatus === 'success' || !db || !areAllCompulsoryFieldsFilled()}
                 className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2"
               >
                 {isSubmitting ? (

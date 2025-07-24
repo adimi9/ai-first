@@ -24,17 +24,20 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
           {/* Main Heading */}
-          <h1 className="mt-2 text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-tight">
+          <h1 className="mt-14 text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-tight">
             <span className="block">
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
                 AI-First 
-                <br/>
+                </span>{" "}
                 Movement
+                <span className="block mt-4 text-2xl md:text-3xl lg:text-4xl font-medium italic text-blue-300">
+                  Are you READY to join us as an{' '}
+                  <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent font-semibold not-italic">
+                    AI-First
+                  </span>{' '}
+                  mover?
+                </span>
               </span>
-            </span>
-            <span className="block mt-4 text-2xl md:text-3xl lg:text-4xl font-medium text-white">
-              Are you READY to join us as an AI-First mover?
-            </span>
           </h1>
 
       

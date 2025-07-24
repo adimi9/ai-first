@@ -38,7 +38,6 @@ function App() {
           <Route path="/dashboard" element={<DepartmentDashboard />} />
           <Route path="/case-studies" element={<CaseStudiesPage />} />
           <Route path="/win-formula" element={<WinFormula/>} />
-
           <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
 
 

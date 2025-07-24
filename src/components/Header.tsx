@@ -60,12 +60,12 @@ const Header = () => {
 
           {/* Desktop Navigation - Unchanged */}
           <nav className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={handleTimelineClick}
+            <Link
+              to="/timeline"
               className="font-bold text-lg text-gray-300 hover:text-white transition-colors"
             >
               Timeline
-            </button>
+            </Link>
 
             <Link
               to="/win-formula"
@@ -87,6 +87,9 @@ const Header = () => {
             >
               Submit Problem Statement
             </Link>
+
+
+            
           </nav>
 
           {/* Mobile menu button */}
@@ -102,15 +105,13 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-800">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <button
-                onClick={() => {
-                  handleTimelineClick();
-                  setIsMenuOpen(false);
-                }}
-                className="block px-3 py-3 text-gray-300 hover:text-white transition-colors w-full text-left"
-              >
-                Timeline
-              </button>
+              <Link
+              to="/timeline"
+              className="font-bold text-lg text-gray-300 hover:text-white transition-colors"
+            >
+              Timeline
+            </Link>
+            
               <Link
                 to="/case-studies"
                 onClick={() => setIsMenuOpen(false)}

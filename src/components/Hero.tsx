@@ -4,7 +4,7 @@ import { ArrowRight, Sparkles, Zap, Brain } from 'lucide-react'
 
 const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen flex justify-center overflow-hidden bg-black">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -24,10 +24,10 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
           {/* Main Heading */}
-          <h1 className="mt-6 text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-tight">
+          <h1 className="mt-2 text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-tight">
             <span className="block">
               <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-cyan-400 bg-clip-text text-transparent">
-                AI-First
+                AI-First <br/>
                 </span>{" "}
                 Movement
                 </span>
@@ -37,7 +37,7 @@ const Hero = () => {
           </h1>
 
       
-          <div className="pt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div className="pt-6 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
               <div className="text-4xl font-bold text-white mb-2">120+</div>
               <div className="text-gray-400">Survey Responses</div>

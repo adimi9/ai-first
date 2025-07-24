@@ -68,7 +68,7 @@ const Header = () => {
               to="/submit-use-case"
               className="text-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
             >
-              Submit Problem Statement
+              Join the Sprint!
             </Link>
           </nav>
 
@@ -117,7 +117,7 @@ const Header = () => {
               onClick={() => setIsMenuOpen(false)}
               className="block w-full text-center px-4 py-3 mt-3 mx-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold"
             >
-              Submit Problem Statement
+              Join the Sprint!
             </Link>
           </div>
         )}

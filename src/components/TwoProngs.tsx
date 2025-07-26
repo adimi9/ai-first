@@ -26,7 +26,7 @@ const TwoProngs = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-auto">
               <Link
-                to="/sprints"
+                to="/win-formula"
                 className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 Learn More About Sprints

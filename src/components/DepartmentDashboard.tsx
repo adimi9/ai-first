@@ -5,157 +5,49 @@ const DepartmentDashboard = () => {
   // Overall aggregated data
   const overallData = {
     department: "Overall - SCG",
-    totalResponses: 114,
+    totalResponses: 120,
     proficiency: [
-      { level: "Basic", count: 60, percentage: 53 },
-      { level: "Confident", count: 37, percentage: 32 },
+      { level: "Basic", count: 64, percentage: 54 },
+      { level: "Confident", count: 39, percentage: 33 },
       { level: "Advanced", count: 10, percentage: 9 },
       { level: "Expert", count: 3, percentage: 3 },
       { level: "Beginner", count: 2, percentage: 2 }
     ],
     frequency: [
-      { frequency: "Regular", count: 51, percentage: 45 },
-      { frequency: "Daily", count: 40, percentage: 35 },
-      { frequency: "Occasional", count: 19, percentage: 17 },
-      { frequency: "Never", count: 2, percentage: 2 }
-    ],
+      { frequency: "Regular", count: 54, percentage: 46 },
+      { frequency: "Daily", count: 42, percentage: 36 },
+      { frequency: "Occasional", count: 19, percentage: 16 },
+      { frequency: "Never", count: 3, percentage: 3 }
+        ],
     avgTimeSpent: 57,
     overallAvg: 57,
     topTasks: [
-      { text: "Data Analysis & Reports", count: 54, percentage: 47 },
-      { text: "Meeting Preparation", count: 52, percentage: 46 },
-      { text: "Email Correspondence", count: 50, percentage: 44 }
+      { text: "Data Analysis & Reports", count: 57, percentage: 48 },
+            { text: "Email Correspondence", count: 54, percentage: 45 },
+      { text: "Meeting Preparation", count: 54, percentage: 45 }
     ],
     topTools: [
-      { text: "Pair Chat", count: 100, percentage: 88 },
-      { text: "Other GenAI", count: 66, percentage: 58 },
-      { text: "AIBots", count: 35, percentage: 31 }
+      { text: "Pair Chat", count: 105, percentage: 88 },
+      { text: "Other GenAI", count: 69, percentage: 58 },
+      { text: "AIBots", count: 36, percentage: 30 }
     ],
     topChallenges: [
-      { text: "Accuracy Concerns", count: 57, percentage: 50 },
-      { text: "Privacy Concerns", count: 50, percentage: 44 },
-      { text: "Poor Prompting", count: 33, percentage: 29 }
+      { text: "Accuracy Concerns", count: 59, percentage: 50 },
+      { text: "Privacy Concerns", count: 54, percentage: 45 },
+      { text: "Poor Prompting", count: 36, percentage: 30 }
     ],
     topSkills: [
-      { text: "Presentation Skills", count: 49, percentage: 43 },
-      { text: "Data Analysis", count: 45, percentage: 39 },
-      { text: "Chart Generation", count: 43, percentage: 38 }
+      { text: "Presentation Skills", count: 53, percentage: 44 },
+      { text: "Data Analysis", count: 46, percentage: 38 },
+      { text: "Chart Generation", count: 44, percentage: 37 }
     ]
   };
 
   // Expanded department data with all 9 departments
   const departmentData = {
     "Overall": overallData,
-    "Digital Governance": {
-      department: "Digital Governance",
-      totalResponses: 21,
-      proficiency: [
-        { level: "Confident", count: 10, percentage: 48 },
-        { level: "Basic", count: 5, percentage: 24 },
-        { level: "Advanced", count: 3, percentage: 14 },
-        { level: "Expert", count: 3, percentage: 14 }
-      ],
-      frequency: [
-        { frequency: "Daily", count: 13, percentage: 62 },
-        { frequency: "Regular", count: 8, percentage: 38 }
-      ],
-      avgTimeSpent: 57,
-      overallAvg: 57,
-      topTasks: [
-        { text: "Data Analysis & Reports", count: 12, percentage: 57 },
-        { text: "Meeting Preparation", count: 10, percentage: 48 },
-        { text: "Email Correspondence", count: 8, percentage: 38 }
-      ],
-      topTools: [
-        { text: "Pair Chat", count: 19, percentage: 90 },
-        { text: "Other GenAI", count: 14, percentage: 67 },
-        { text: "AIBots", count: 11, percentage: 52 }
-      ],
-      topChallenges: [
-        { text: "Privacy Concerns", count: 14, percentage: 67 },
-        { text: "Accuracy Concerns", count: 8, percentage: 38 },
-        { text: "No Time to Learn", count: 5, percentage: 24 }
-      ],
-      topSkills: [
-        { text: "Presentation Skills", count: 12, percentage: 57 },
-        { text: "Data Analysis", count: 9, percentage: 43 },
-        { text: "Multi-step Prompting", count: 5, percentage: 24 }
-      ]
-    },
-    "People & Org": {
-      department: "People & Org",
-      totalResponses: 21,
-      proficiency: [
-        { level: "Basic", count: 14, percentage: 67 },
-        { level: "Confident", count: 7, percentage: 33 }
-      ],
-      frequency: [
-        { frequency: "Daily", count: 11, percentage: 52 },
-        { frequency: "Regular", count: 6, percentage: 29 },
-        { frequency: "Occasional", count: 3, percentage: 14 },
-        { frequency: "Never", count: 1, percentage: 5 }
-      ],
-      avgTimeSpent: 47,
-      overallAvg: 57,
-      topTasks: [
-        { text: "Data Analysis & Reports", count: 16, percentage: 76 },
-        { text: "Meeting Preparation", count: 9, percentage: 43 },
-        { text: "Email Correspondence", count: 8, percentage: 38 }
-      ],
-      topTools: [
-        { text: "Pair Chat", count: 21, percentage: 100 },
-        { text: "Other GenAI", count: 10, percentage: 48 },
-        { text: "Pair Search", count: 7, percentage: 33 }
-      ],
-      topChallenges: [
-        { text: "Accuracy Concerns", count: 10, percentage: 48 },
-        { text: "Privacy Concerns", count: 10, percentage: 48 },
-        { text: "Needs Editing", count: 8, percentage: 38 }
-      ],
-      topSkills: [
-        { text: "Data Analysis", count: 10, percentage: 48 },
-        { text: "Presentation Skills", count: 10, percentage: 48 },
-        { text: "Chart Generation", count: 10, percentage: 48 }
-      ]
-    },
-    "Strat Plans & Transformation": {
-      department: "Strat Plans & Transformation",
-      totalResponses: 13,
-      proficiency: [
-        { level: "Basic", count: 5, percentage: 38 },
-        { level: "Confident", count: 5, percentage: 38 },
-        { level: "Advanced", count: 3, percentage: 23 }
-      ],
-      frequency: [
-        { frequency: "Regular", count: 6, percentage: 46 },
-        { frequency: "Daily", count: 4, percentage: 31 },
-        { frequency: "Occasional", count: 3, percentage: 23 }
-      ],
-      avgTimeSpent: 48,
-      overallAvg: 54,
-      topTasks: [
-        { text: "Meeting Preparation", count: 9, percentage: 69 },
-        { text: "Email Correspondence", count: 6, percentage: 46 },
-        { text: "Admin Tasks", count: 6, percentage: 46 }
-      ],
-      topTools: [
-        { text: "Pair Chat", count: 11, percentage: 85 },
-        { text: "Other GenAI", count: 11, percentage: 85 },
-        { text: "AIBots", count: 6, percentage: 46 }
-      ],
-      topChallenges: [
-        { text: "Inconsistent Quality", count: 5, percentage: 38 },
-        { text: "Accuracy Concerns", count: 4, percentage: 31 },
-        { text: "Privacy Concerns", count: 4, percentage: 31 }
-      ],
-      topSkills: [
-        { text: "Multi-step Prompting", count: 7, percentage: 54 },
-        { text: "Presentation Skills", count: 4, percentage: 31 },
-        { text: "Template Creation", count: 4, percentage: 31 }
-      ]
-    },
     "Comms & Marketing": {
-      department: "Comms & Marketing",
+      department: "Communications & Marketing",
       totalResponses: 10,
       proficiency: [
         { level: "Basic", count: 5, percentage: 50 },
@@ -189,77 +81,43 @@ const DepartmentDashboard = () => {
         { text: "Template Creation", count: 4, percentage: 40 }
       ]
     },
-    "Org Excellence": {
-      department: "Org Excellence",
-      totalResponses: 7,
+    "Digital Governance": {
+      department: "Digital Governance",
+      totalResponses: 23,
       proficiency: [
-        { level: "Basic", count: 3, percentage: 43 },
-        { level: "Confident", count: 4, percentage: 57 }
+        { level: "Basic", count: 6, percentage: 26 },
+        { level: "Confident", count: 11, percentage: 48 },
+        { level: "Advanced", count: 3, percentage: 13 },
+        { level: "Expert", count: 3, percentage: 13 }
       ],
       frequency: [
-        { frequency: "Regular", count: 5, percentage: 71 },
-        { frequency: "Daily", count: 1, percentage: 14 },
-        { frequency: "Occasional", count: 1, percentage: 14 }
+        { frequency: "Daily", count: 14, percentage: 61 },
+        { frequency: "Regular", count: 9, percentage: 39 }
       ],
       avgTimeSpent: 60,
-      overallAvg: 54,
+      overallAvg: 57,
       topTasks: [
-        { text: "Meeting Preparation", count: 6, percentage: 86 },
-        { text: "Admin Tasks", count: 5, percentage: 71 },
-        { text: "Email Correspondence", count: 3, percentage: 43 }
+        { text: "Data Analysis & Reports", count: 12, percentage: 52 },
+        { text: "Meeting Preparation", count: 11, percentage: 48 },
+        { text: "Email Correspondence", count: 9, percentage: 39 }
       ],
       topTools: [
-        { text: "Pair Chat", count: 7, percentage: 100 },
-        { text: "AIBots", count: 5, percentage: 71 },
-        { text: "Other GenAI", count: 5, percentage: 71 }
+        { text: "Pair Chat", count: 21, percentage: 91 },
+        { text: "Other GenAI", count: 15, percentage: 65 },
+        { text: "AIBots", count: 11, percentage: 48 }
       ],
       topChallenges: [
-        { text: "Accuracy Concerns", count: 6, percentage: 86 },
-        { text: "Needs Editing", count: 4, percentage: 57 },
-        { text: "Poor Prompting", count: 4, percentage: 57 }
+        { text: "Privacy Concerns", count: 15, percentage: 65 },
+        { text: "Accuracy Concerns", count: 9, percentage: 39 },
+        { text: "Needs Editing", count: 6, percentage: 26 }
       ],
       topSkills: [
-        { text: "Chart Generation", count: 4, percentage: 57 },
-        { text: "Presentation Skills", count: 3, percentage: 43 },
-        { text: "Template Creation", count: 3, percentage: 43 }
+        { text: "Presentation Skills", count: 13, percentage: 57 },
+        { text: "Data Analysis", count: 9, percentage: 39 },
+        { text: "Understanding Which AI Tool Works Best", count: 8, percentage: 35 }
       ]
     },
-    "Partnerships & Engagement": {
-      department: "Partnerships & Engagement",
-      totalResponses: 7,
-      proficiency: [
-        { level: "Basic", count: 2, percentage: 29 },
-        { level: "Confident", count: 3, percentage: 43 },
-        { level: "Advanced", count: 2, percentage: 29 }
-      ],
-      frequency: [
-        { frequency: "Regular", count: 4, percentage: 57 },
-        { frequency: "Daily", count: 3, percentage: 43 }
-      ],
-      avgTimeSpent: 67,
-      overallAvg: 54,
-      topTasks: [
-        { text: "Meeting Preparation", count: 5, percentage: 71 },
-        { text: "Stakeholder Engagement", count: 4, percentage: 57 },
-        { text: "Data Analysis & Reports", count: 2, percentage: 29 }
-      ],
-      topTools: [
-        { text: "Pair Chat", count: 5, percentage: 71 },
-        { text: "Other GenAI", count: 5, percentage: 71 },
-        { text: "Transcribe", count: 4, percentage: 57 }
-      ],
-      topChallenges: [
-        { text: "Accuracy Concerns", count: 5, percentage: 71 },
-        { text: "Privacy Concerns", count: 4, percentage: 57 },
-        { text: "Inconsistent Quality", count: 2, percentage: 29 }
-      ],
-      topSkills: [
-        { text: "Presentation Skills", count: 5, percentage: 71 },
-        { text: "Data Analysis", count: 4, percentage: 57 },
-        { text: "Chart Generation", count: 4, percentage: 57 }
-      ]
-    },
-        "Finance": {
+    "Finance": {
       department: "Finance",
       totalResponses: 25,
       proficiency: [
@@ -303,14 +161,15 @@ const DepartmentDashboard = () => {
         { level: "Advanced", count: 1, percentage: 50 }
       ],
       frequency: [
-        { frequency: "Daily", count: 1, percentage: 50 },
+        { frequency: "Frequently", count: 1, percentage: 50 },
         { frequency: "Never", count: 1, percentage: 50 }
       ],
       avgTimeSpent: 78,
-      overallAvg: 54,
+      overallAvg: 57,
       topTasks: [
         { text: "Document Review", count: 2, percentage: 100 },
-        { text: "Email Correspondence", count: 2, percentage: 100 }
+        { text: "Email Correspondence", count: 2, percentage: 100 },
+        { text: "Meeting Preparation", count: 1, percentage: 50 }
       ],
       topTools: [
         { text: "Pair Chat", count: 1, percentage: 50 },
@@ -319,55 +178,195 @@ const DepartmentDashboard = () => {
       ],
       topChallenges: [
         { text: "Accuracy Concerns", count: 2, percentage: 100 },
-        { text: "Privacy Concerns", count: 2, percentage: 100 }
+        { text: "Privacy Concerns", count: 2, percentage: 100 },
+        { text: "Needs Editing", count: 1, percentage: 50 }
       ],
       topSkills: [
         { text: "Template Creation", count: 1, percentage: 50 },
-        { text: "Quality Checking", count: 1, percentage: 50 }
+        { text: "Quality Checking", count: 1, percentage: 50 },
+        { text: "Multi-step Prompting", count: 1, percentage: 50 }
+      ]
+    },
+    "Org Excellence": {
+      department: "Organisation Excellence",
+      totalResponses: 8,
+      proficiency: [
+        { level: "Basic", count: 4, percentage: 50 },
+        { level: "Confident", count: 4, percentage: 50 }
+      ],
+      frequency: [
+        { frequency: "Regular", count: 6, percentage: 75 },
+        { frequency: "Daily", count: 1, percentage: 13 },
+        { frequency: "Occasional", count: 1, percentage: 13 }
+      ],
+      avgTimeSpent: 59,
+      overallAvg: 57,
+      topTasks: [
+        { text: "Meeting Preparation", count: 7, percentage: 88 },
+        { text: "Admin Tasks", count: 6, percentage: 75 },
+        { text: "Email Correspondence", count: 4, percentage: 50 }
+      ],
+      topTools: [
+        { text: "Pair Chat", count: 8, percentage: 100 },
+        { text: "Other GenAI", count: 6, percentage: 75 },
+        { text: "AIBots", count: 5, percentage: 63 }      ],
+      topChallenges: [
+        { text: "Accuracy Concerns", count: 7, percentage: 88 },
+        { text: "Poor Prompting", count: 5, percentage: 63 },
+        { text: "Needs Editing", count: 4, percentage: 50 }
+      ],
+      topSkills: [
+        { text: "Chart Generation", count: 4, percentage: 50 },
+        { text: "Presentation Skills", count: 4, percentage: 50 },
+        { text: "Template Creation", count: 3, percentage: 38 }
+      ]
+    },
+    "Partnerships & Engagement": {
+      department: "Partnerships & Engagement",
+      totalResponses: 7,
+      proficiency: [
+        { level: "Basic", count: 2, percentage: 29 },
+        { level: "Confident", count: 3, percentage: 43 },
+        { level: "Advanced", count: 2, percentage: 29 }
+      ],
+      frequency: [
+        { frequency: "Regular", count: 4, percentage: 57 },
+        { frequency: "Daily", count: 3, percentage: 43 }
+      ],
+      avgTimeSpent: 67,
+      overallAvg: 57,
+      topTasks: [
+        { text: "Meeting Preparation", count: 5, percentage: 71 },
+        { text: "Stakeholder Engagement", count: 4, percentage: 57 },
+        { text: "Data Analysis & Reports", count: 2, percentage: 29 }
+      ],
+      topTools: [
+        { text: "Pair Chat", count: 5, percentage: 71 },
+        { text: "Other GenAI", count: 5, percentage: 71 },
+        { text: "Transcribe", count: 4, percentage: 57 }
+      ],
+      topChallenges: [
+        { text: "Accuracy Concerns", count: 5, percentage: 71 },
+        { text: "Privacy Concerns", count: 4, percentage: 57 },
+        { text: "Inconsistent Quality", count: 2, percentage: 29 }
+      ],
+      topSkills: [
+        { text: "Presentation Skills", count: 5, percentage: 71 },
+        { text: "Data Analysis", count: 4, percentage: 57 },
+        { text: "Chart Generation", count: 4, percentage: 57 }
+      ]
+    },
+    "People & Org": {
+      department: "People & Organisation",
+      totalResponses: 23,
+      proficiency: [
+        { level: "Basic", count: 16, percentage: 73 },
+        { level: "Confident", count: 6, percentage: 27 }      ],
+      frequency: [
+        { frequency: "Daily", count: 11, percentage: 50 },
+        { frequency: "Regular", count: 7, percentage: 32 },
+        { frequency: "Occasional", count: 2, percentage: 9 },
+        { frequency: "Never", count: 2, percentage: 9 }
+      ],
+      avgTimeSpent: 45,
+      overallAvg: 57,
+      topTasks: [
+        { text: "Data Analysis & Reports", count: 18, percentage: 78 },
+        { text: "Meeting Preparation", count: 9, percentage: 39 },
+        { text: "Email Correspondence", count: 9, percentage: 39 }
+      ],
+      topTools: [
+        { text: "Pair Chat", count: 21, percentage: 91 },
+        { text: "Other GenAI", count: 11, percentage: 48 },
+        { text: "Pair Search", count: 7, percentage: 30 }
+      ],
+      topChallenges: [
+        { text: "Privacy Concerns", count: 11, percentage: 48 },
+        { text: "Accuracy Concerns", count: 10, percentage: 43 },
+        { text: "Needs Editing", count: 8, percentage: 35 }
+      ],
+      topSkills: [
+        { text: "Presentation Skills", count: 11, percentage: 48 },
+        { text: "Data Analysis", count: 10, percentage: 43 },
+        { text: "Chart Generation", count: 10, percentage: 43 }
+      ]
+    },
+    "Strat Plans & Transformation": {
+      department: "Strategy Planning & Transformation",
+      totalResponses: 13,
+      proficiency: [
+        { level: "Basic", count: 5, percentage: 38 },
+        { level: "Confident", count: 5, percentage: 38 },
+        { level: "Advanced", count: 3, percentage: 23 }
+      ],
+      frequency: [
+        { frequency: "Regular", count: 6, percentage: 46 },
+        { frequency: "Daily", count: 4, percentage: 31 },
+        { frequency: "Occasional", count: 3, percentage: 23 }
+      ],
+      avgTimeSpent: 48,
+      overallAvg: 57,
+      topTasks: [
+        { text: "Meeting Preparation", count: 9, percentage: 69 },
+        { text: "Email Correspondence", count: 6, percentage: 46 },
+        { text: "Admin Tasks", count: 6, percentage: 46 }
+      ],
+      topTools: [
+        { text: "Pair Chat", count: 11, percentage: 85 },
+        { text: "Other GenAI", count: 11, percentage: 85 },
+        { text: "AIBots", count: 6, percentage: 46 }
+      ],
+      topChallenges: [
+        { text: "Inconsistent Quality", count: 5, percentage: 38 },
+        { text: "Accuracy Concerns", count: 4, percentage: 31 },
+        { text: "Privacy Concerns", count: 4, percentage: 31 }
+      ],
+      topSkills: [
+        { text: "Multi-step Prompting", count: 7, percentage: 54 },
+        { text: "Presentation Skills", count: 4, percentage: 31 },
+        { text: "Template Creation", count: 4, percentage: 31 }
       ]
     },
     "Procurement": {
       department: "Procurement",
-      totalResponses: 6,
+      totalResponses: 8,
       proficiency: [
-        { level: "Basic", count: 4, percentage: 67 },
-        { level: "Confident", count: 1, percentage: 17 },
-        { level: "Advanced", count: 1, percentage: 17 }
+        { level: "Basic", count: 4, percentage: 50 },
+        { level: "Confident", count: 3, percentage: 38 },
+        { level: "Advanced", count: 1, percentage: 13 }
       ],
       frequency: [
-        { frequency: "Regular", count: 3, percentage: 50 },
-        { frequency: "Daily", count: 2, percentage: 33 },
-        { frequency: "Occasional", count: 1, percentage: 17 }
+        { frequency: "Regular", count: 3, percentage: 38 },
+        { frequency: "Daily", count: 3, percentage: 38 },
+        { frequency: "Occasional", count: 2, percentage: 25 }
       ],
-      avgTimeSpent: 69,
-      overallAvg: 54,
+      avgTimeSpent: 66,
+      overallAvg: 57,
       topTasks: [
-        { text: "Email Correspondence", count: 5, percentage: 83 },
-        { text: "Meeting Preparation", count: 3, percentage: 50 },
-        { text: "Procurement Management", count: 3, percentage: 50 }
+        { text: "Email Correspondence", count: 7, percentage: 88 },
+        { text: "Procurement Management", count: 4, percentage: 50 },
+        { text: "Document Review", count: 3, percentage: 38 }
       ],
       topTools: [
-        { text: "Pair Chat", count: 6, percentage: 100 },
-        { text: "AIBots", count: 5, percentage: 83 },
-        { text: "Other GenAI", count: 2, percentage: 33 }
+        { text: "Pair Chat", count: 8, percentage: 100 },
+        { text: "AIBots", count: 6, percentage: 75 },
+        { text: "Other GenAI", count: 2, percentage: 25 }
       ],
       topChallenges: [
-        { text: "Accuracy Concerns", count: 5, percentage: 83 },
-        { text: "Privacy Concerns", count: 3, percentage: 50 },
-        { text: "Inconsistent Quality", count: 2, percentage: 33 }
+        { text: "Accuracy Concerns", count: 6, percentage: 75 },
+        { text: "Privacy Concerns", count: 5, percentage: 63 },
+        { text: "Inconsistent Quality", count: 2, percentage: 25 }
       ],
       topSkills: [
-        { text: "Presentation Skills", count: 4, percentage: 67 },
-        { text: "Template Creation", count: 2, percentage: 33 },
-        { text: "Multi-step Prompting", count: 2, percentage: 33 }
+        { text: "Presentation Skills", count: 5, percentage: 75 },
+        { text: "Quality Checking", count: 4, percentage: 50 },
+        { text: "Generating Charts", count: 3, percentage: 38 }
       ]
     }
   };
 
   const [selectedDepartment, setSelectedDepartment] = useState('Overall');
   const currentData = departmentData[selectedDepartment];
-
-
 
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
 
@@ -404,9 +403,8 @@ const DepartmentDashboard = () => {
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div
-                className={`h-2 rounded-full ${
-                  index === 0 ? 'bg-blue-600' : index === 1 ? 'bg-blue-500' : 'bg-blue-400'
-                }`}
+                className={`h-2 rounded-full ${index === 0 ? 'bg-blue-600' : index === 1 ? 'bg-blue-500' : 'bg-blue-400'
+                  }`}
                 style={{ width: `${item.percentage}%` }}
               />
             </div>
@@ -416,13 +414,11 @@ const DepartmentDashboard = () => {
     </div>
   );
 
-
-
   // Time gauge
   const TimeGauge = ({ deptTime, overallTime }) => {
     const difference = deptTime - overallTime;
     const isAbove = difference > 0;
-    
+
     return (
       <div className="bg-white rounded-lg shadow p-3 text-center h-full flex flex-col justify-center">
         <h4 className="text-sm font-bold text-gray-800 mb-2">Time vs Average</h4>
@@ -442,11 +438,19 @@ const DepartmentDashboard = () => {
     );
   };
 
+  // Function to calculate time savings
+  const calculateTimeSavings = (timeSpentPercentage) => {
+    const weeklyHours = 40;
+    const repetitiveHours = (timeSpentPercentage / 100) * weeklyHours;
+    const hoursSaved = repetitiveHours * 0.5; // 50% reduction
+    return hoursSaved.toFixed(1);
+  };
+
   return (
     <div className="w-full h-screen bg-gray-100 p-2 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto bg-gray-50 rounded-xl shadow-2xl overflow-hidden">
         <div className="p-2 flex flex-col">
-          
+
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-2 text-white mb-1 flex-shrink-0">
             <div className="flex justify-between items-center">
               <div>
@@ -460,8 +464,8 @@ const DepartmentDashboard = () => {
                 </div>
                 <div>
                   <div className="text-base font-bold">
-                    {(currentData.proficiency.find(p => p.level === 'Basic')?.percentage || 0) + 
-                     (currentData.proficiency.find(p => p.level === 'Beginner')?.percentage || 0)}%
+                    {(currentData.proficiency.find(p => p.level === 'Basic')?.percentage || 0) +
+                      (currentData.proficiency.find(p => p.level === 'Beginner')?.percentage || 0)}%
                   </div>
                   <div className="text-xs opacity-80">Beginner/Basic</div>
                 </div>
@@ -481,11 +485,10 @@ const DepartmentDashboard = () => {
                 <button
                   key={dept}
                   onClick={() => setSelectedDepartment(dept)}
-                  className={`py-2 rounded text-xs font-medium transition-all flex items-center justify-center px-1 ${
-                    selectedDepartment === dept
+                  className={`py-2 rounded text-xs font-medium transition-all flex items-center justify-center px-1 ${selectedDepartment === dept
                       ? 'bg-blue-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
+                    }`}
                 >
                   <div className="text-center leading-tight">
                     {dept === "Overall" ? (
@@ -532,93 +535,22 @@ const DepartmentDashboard = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-12 gap-3">
-            
-            <div className="col-span-5 flex flex-col">
-              
-              <div className="grid grid-cols-2 gap-3 mb-2">
-                <div className="bg-white rounded-lg shadow p-3 flex flex-col" style={{ height: '280px' }}>
-                  <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">AI Proficiency</h3>
-                  <div className="flex-1">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={currentData.proficiency}
-                          cx="50%"
-                          cy="50%"
-                          outerRadius="70%"
-                          fill="#8884d8"
-                          dataKey="count"
-                          label={({percentage}) => `${percentage}%`}                        >
-                          {currentData.proficiency.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip content={CustomTooltip as any} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-1 text-xs -mt-3">
-                    {currentData.proficiency.map((item, index) => (
-                      <div key={index} className="flex items-center">
-                        <div 
-                          className="w-2 h-2 rounded-full mr-1" 
-                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                        />
-                        <span className="text-xs text-gray-600">{item.level}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+          <div className="grid grid-cols-12 gap-3 h-full">
 
-                <div className="bg-white rounded-lg shadow p-3 flex flex-col" style={{ height: '280px' }}>
-                  <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">Usage Frequency</h3>
-                  <div className="flex-1">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={currentData.frequency}
-                          cx="50%"
-                          cy="50%"
-                          outerRadius="70%"
-                          fill="#8884d8"
-                          dataKey="count"
-                          label={({percentage}) => `${percentage}%`}
-                        >
-                          {currentData.frequency.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                          ))}
-                        </Pie>
-                        <Tooltip content={CustomTooltip as any} />
-                      </PieChart>
-                    </ResponsiveContainer>
-                  </div>
-                  <div className="flex flex-wrap justify-center gap-1 text-xs">
-                    {currentData.frequency.map((item, index) => (
-                      <div key={index} className="flex items-center">
-                        <div 
-                          className="w-2 h-2 rounded-full mr-1" 
-                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
-                        />
-                        <span className="text-xs text-gray-600">{item.frequency}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+            <div className="col-span-5 flex flex-col h-full">
 
-              <div className="grid grid-cols-7 gap-3" style={{ height: '140px' }}>
+              <div className="grid grid-cols-7 gap-3 mb-6" style={{ height: '140px' }}>
                 <div className="col-span-2">
-                  <TimeGauge 
-                    deptTime={currentData.avgTimeSpent} 
-                    overallTime={currentData.overallAvg} 
+                  <TimeGauge
+                    deptTime={currentData.avgTimeSpent}
+                    overallTime={currentData.overallAvg}
                   />
                 </div>
-                
+
                 <div className="col-span-5 bg-white rounded-lg shadow p-3">
                   <div className="flex items-center mb-2">
                     <span className="text-sm mr-2">⏱️</span>
-                    <h3 className="text-sm font-bold text-gray-800">Top Tasks</h3>
+                    <h3 className="text-sm font-bold text-gray-800">Top Time Consuming Tasks</h3>
                   </div>
                   <div className="space-y-2 overflow-y-auto" style={{ height: '100px' }}>
                     {currentData.topTasks.map((task, index) => (
@@ -631,9 +563,8 @@ const DepartmentDashboard = () => {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div
-                            className={`h-2 rounded-full ${
-                              index === 0 ? 'bg-blue-600' : index === 1 ? 'bg-blue-500' : 'bg-blue-400'
-                            }`}
+                            className={`h-2 rounded-full ${index === 0 ? 'bg-blue-600' : index === 1 ? 'bg-blue-500' : 'bg-blue-400'
+                              }`}
                             style={{ width: `${task.percentage}%` }}
                           />
                         </div>
@@ -642,21 +573,92 @@ const DepartmentDashboard = () => {
                   </div>
                 </div>
               </div>
+
+              <div className="grid grid-cols-2 gap-3" style={{ height: '260px' }}>
+                <div className="bg-white rounded-lg shadow p-3 flex flex-col" style={{ height: '270px' }}>
+                  <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">AI Proficiency</h3>
+                  <div className="flex-1">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={currentData.proficiency}
+                          cx="50%"
+                          cy="50%"
+                          outerRadius="70%"
+                          fill="#8884d8"
+                          dataKey="count"
+                          label={({ percentage }) => `${percentage}%`}                        >
+                          {currentData.proficiency.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip content={CustomTooltip} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-1 text-xs mt-auto">
+                    {currentData.proficiency.map((item, index) => (
+                      <div key={index} className="flex items-center">
+                        <div
+                          className="w-2 h-2 rounded-full mr-1"
+                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                        />
+                        <span className="text-xs text-gray-600">{item.level}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg shadow p-3 flex flex-col" style={{ height: '270px' }}>
+                  <h3 className="text-sm font-bold text-gray-800 mb-2 text-center">AI Usage Frequency</h3>
+                  <div className="flex-1">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <PieChart>
+                        <Pie
+                          data={currentData.frequency}
+                          cx="50%"
+                          cy="50%"
+                          outerRadius="70%"
+                          fill="#8884d8"
+                          dataKey="count"
+                          label={({ percentage }) => `${percentage}%`}
+                        >
+                          {currentData.frequency.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                          ))}
+                        </Pie>
+                        <Tooltip content={CustomTooltip} />
+                      </PieChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex flex-wrap justify-center gap-1 text-xs mt-auto">
+                    {currentData.frequency.map((item, index) => (
+                      <div key={index} className="flex items-center">
+                        <div
+                          className="w-2 h-2 rounded-full mr-1"
+                          style={{ backgroundColor: COLORS[index % COLORS.length] }}
+                        />
+                        <span className="text-xs text-gray-600">{item.frequency}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div className="col-span-7 grid grid-cols-3 gap-3" style={{ gridTemplateRows: '210px 210px', gridTemplateColumns: '1fr 1fr 2fr' }}>
-              
-              <CompactMetricCard 
-                title="Tools Used" 
-                data={currentData.topTools} 
-                icon="🛠️" 
+
+              <CompactMetricCard
+                title="Tools Used"
+                data={currentData.topTools}
+                icon="🛠️"
                 bgColor="bg-green-50"
               />
-              
-              <CompactMetricCard 
-                title="Challenges" 
-                data={currentData.topChallenges} 
-                icon="⚠️" 
+
+              <CompactMetricCard
+                title="Challenges"
+                data={currentData.topChallenges}
+                icon="⚠️"
                 bgColor="bg-red-50"
               />
 
@@ -669,63 +671,86 @@ const DepartmentDashboard = () => {
                   <div>
                     <h5 className="font-semibold text-blue-800 mb-0">Readiness Level</h5>
                     <p className="text-gray-700 text-xs leading-tight">
-                      {selectedDepartment === 'Overall' 
-                        ? "🟡 Mixed readiness - 53% at basic level, need targeted training"
-                        : currentData.proficiency.find(p => p.level === 'Basic')?.percentage >= 70 
-                        ? "🔴 High training need - majority at basic level" 
-                        : currentData.proficiency.find(p => ['Advanced', 'Expert'].includes(p.level))?.percentage >= 20
-                        ? "🟢 Good foundation - some advanced users"
-                        : "🟡 Mixed levels - moderate training need"}
+                      {(() => {
+                        const advancedPercentage = (currentData.proficiency.find(p => p.level === 'Advanced')?.percentage || 0) +
+                          (currentData.proficiency.find(p => p.level === 'Expert')?.percentage || 0);
+                        const confidentPercentage = currentData.proficiency.find(p => p.level === 'Confident')?.percentage || 0;
+
+                        if (advancedPercentage >= 20) {
+                          return "Good mix of skill levels - some experienced users available";
+                        } else if (confidentPercentage >= 50 && advancedPercentage < 20) {
+                          return "Good mix of skill levels - some confident users available";
+                        } else {
+                          return "Most staff are basic level - training is needed";
+                        }
+                      })()}
                     </p>
                   </div>
                   <div>
-                    <h5 className="font-semibold text-blue-800 mb-1">Time Impact</h5>
+                    <h5 className="font-semibold text-blue-800 mb-1">Time Savings Potential</h5>
                     <p className="text-gray-700 text-xs leading-tight">
-                      {selectedDepartment === 'Overall'
-                        ? "🟡 Moderate impact - average 57% time spent on AI-suitable tasks"
-                        : currentData.avgTimeSpent > currentData.overallAvg + 10
-                        ? "🔴 High opportunity - above average time spent"
-                        : currentData.avgTimeSpent < currentData.overallAvg - 10
-                        ? "🟢 Efficient - below average time spent"
-                        : "🟡 Moderate opportunity - near average"}
+                      • Staff currently spend {currentData.avgTimeSpent}% of time on repetitive tasks<br />
+                      • Cutting down 50% = <span className="font-bold">{calculateTimeSavings(currentData.avgTimeSpent)} hours saved per week ({(calculateTimeSavings(currentData.avgTimeSpent) / 8).toFixed(1)} days per person)</span>
                     </p>
                   </div>
                   <div>
                     <h5 className="font-semibold text-blue-800 mb-1">Usage Pattern</h5>
                     <p className="text-gray-700 text-xs leading-tight">
                       {selectedDepartment === 'Overall'
-                        ? "🟡 Mixed usage - 35% daily users, 45% regular users"
+                        ? "Mixed usage - 35% daily users, 45% regular users"
                         : currentData.frequency.find(f => f.frequency === 'Daily')?.percentage >= 50
-                        ? "🟢 High engagement - majority are daily users"
-                        : currentData.frequency.find(f => f.frequency === 'Never')?.percentage > 0
-                        ? "🔴 Some non-users - need adoption support"
-                        : "🟡 Moderate engagement - mostly occasional/regular users"}
+                          ? "Daily users - most staff use AI tools regularly"
+                          : currentData.frequency.find(f => f.frequency === 'Never')?.percentage > 0
+                            ? "Getting started - some staff haven't tried AI tools yet"
+                            : "Mixed usage - some use daily, others occasionally"}
                     </p>
                   </div>
                   <div>
                     <h5 className="font-semibold text-blue-800 mb-1">Top Priority</h5>
                     <p className="text-gray-700 text-xs leading-tight">
                       {selectedDepartment === 'Overall'
-                        ? <>Focus on <span className="font-bold">accuracy concerns</span> and <span className="font-bold">prompting skills</span></>
-                        : <>Focus on <span className="font-bold">{currentData.topSkills[0]?.text}</span> training</>}
+                        ? <>Focus on <span className="font-bold">Data Analysis</span> (47%) and <span className="font-bold">Meeting Preparation</span> (46%) first</>
+                        : <>Focus on <span className="font-bold">{currentData.topTasks[0]?.text}</span> ({currentData.topTasks[0]?.percentage}%) and <span className="font-bold">{currentData.topTasks[1]?.text}</span> ({currentData.topTasks[1]?.percentage}%) first</>}
                     </p>
                   </div>
                   <div>
-                    <h5 className="font-semibold text-blue-800 mb-1">Top Tasks to Tackle</h5>
+                    <h5 className="font-semibold text-blue-800 mb-1">AI Opportunities</h5>
                     <p className="text-gray-700 text-xs leading-tight">
                       {selectedDepartment === 'Overall'
-                        ? <>Prioritize <span className="font-bold">Data Analysis</span> (47%) and <span className="font-bold">Meeting Prep</span> (46%)</>
-                        : <>Prioritize <span className="font-bold">{currentData.topTasks[0]?.text}</span> ({currentData.topTasks[0]?.percentage}%) and <span className="font-bold">{currentData.topTasks[1]?.text}</span> ({currentData.topTasks[1]?.percentage}%)</>}
+                        ? <>Suggestions include <span className="font-bold">automated financial reporting</span>, <span className="font-bold">procurement streamlining</span>, <span className="font-bold">meeting scheduling/notes</span>, and <span className="font-bold">HR query chatbots</span> as top automation opportunities</>
+                        : (() => {
+                          if (selectedDepartment === 'Finance') {
+                            return <>Suggestions include <span className="font-bold">automated financial reporting & analysis</span>, <span className="font-bold">AI-driven reconciliations</span>, <span className="font-bold">expense/claims approval automation</span>, and <span className="font-bold">variance analysis</span></>;
+                          } else if (selectedDepartment === 'People & Org') {
+                            return <>Suggestions include <span className="font-bold">AI-driven recruitment screening</span>, <span className="font-bold">personalized learning paths</span>, <span className="font-bold">benefits/policy chatbots</span>, and <span className="font-bold">internal mobility matching</span></>;
+                          } else if (selectedDepartment === 'Digital Governance') {
+                            return <>Suggestions include <span className="font-bold">automated compliance monitoring</span>, <span className="font-bold">risk assessment generation</span>, <span className="font-bold">data pipeline automation</span>, and <span className="font-bold">governance query routing</span></>;
+                          } else if (selectedDepartment === 'Procurement') {
+                            return <>Suggestions include <span className="font-bold">automated ITT/ITQ drafting</span>, <span className="font-bold">procure-to-pay automation</span>, <span className="font-bold">vendor evaluation assistance</span>, and <span className="font-bold">contract management</span></>;
+                          } else if (selectedDepartment === 'Legal') {
+                            return <>Suggestions include <span className="font-bold">legal technicality simplification</span>, <span className="font-bold">document review automation</span>, <span className="font-bold">contract analysis</span>, and <span className="font-bold">compliance checking</span></>;
+                          } else if (selectedDepartment === 'Comms & Marketing') {
+                            return <>Suggestions include <span className="font-bold">branded template generation</span>, <span className="font-bold">automated press release drafts</span>, <span className="font-bold">social media content creation</span>, and <span className="font-bold">brand asset management</span></>;
+                          } else if (selectedDepartment === 'Strat Plans & Transformation') {
+                            return <>Suggestions include <span className="font-bold">strategic planning assistance</span>, <span className="font-bold">trend analysis automation</span>, <span className="font-bold">presentation generation</span>, and <span className="font-bold">workflow optimization</span></>;
+                          } else if (selectedDepartment === 'Org Excellence') {
+                            return <>Suggestions include <span className="font-bold">automated meeting minutes</span>, <span className="font-bold">secretariat task automation</span>, <span className="font-bold">process optimization</span>, and <span className="font-bold">quality assessment tools</span></>;
+                          } else if (selectedDepartment === 'Partnerships & Engagement') {
+                            return <>Suggestions include <span className="font-bold">partner information chatbots</span>, <span className="font-bold">engagement tracking automation</span>, <span className="font-bold">stakeholder communication tools</span>, and <span className="font-bold">meeting coordination</span></>;
+                          } else {
+                            return <>Diverse task portfolio suggests <span className="font-bold">multi-purpose AI assistant</span> optimization</>;
+                          }
+                        })()}
                     </p>
                   </div>
                 </div>
               </div>
 
               <div className="col-span-2">
-                <CompactMetricCard 
-                  title="Skills Needed" 
-                  data={currentData.topSkills} 
-                  icon="🎓" 
+                <CompactMetricCard
+                  title="Key Areas Identified"
+                  data={currentData.topSkills}
+                  icon="🎓"
                   bgColor="bg-purple-50"
                 />
               </div>

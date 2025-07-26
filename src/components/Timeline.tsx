@@ -81,6 +81,9 @@ const Timeline = () => {
         };
     }, []);
 
+    // Reverse the timeline array to display in reverse chronological order
+    const reversedTimeline = [...timeline].reverse();
+
     return (
         <section id="timeline" className="px-6 py-20 bg-gray-950">
             <style>{`
@@ -132,9 +135,12 @@ const Timeline = () => {
                     <div className="absolute left-1/2 transform -translate-x-1/2 top-[1.1rem] bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 rounded-full md:top-[1.9rem]"></div>
 
                     <div className="space-y-12">
-                        {timeline.map((phase, index) => {
+                        {/* Map over the reversedTimeline array */}
+                        {reversedTimeline.map((phase, index) => {
                             const isVisible = visibleItems[index];
-                            const isLeft = index % 2 === 0; // Alternating: 0, 2, 4... are left, 1, 3, 5... are right
+                            // Adjust `isLeft` logic if needed for reversed order visual balance,
+                            // but usually it's fine as it just alternates positions.
+                            const isLeft = index % 2 === 0;
 
                             return (
                                 <div

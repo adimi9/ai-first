@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isHomeDropdownOpen, setIsHomeDropdownOpen] = useState(false);
+  const dropdownTimeoutRef = useRef(null);
+  const location = useLocation();
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      const headerHeight = 45;
+      const headerHeight = 45; // Adjust as needed
       const elementPosition = element.offsetTop - headerHeight;
       window.scrollTo({
         top: elementPosition,
@@ -16,13 +19,25 @@ const Header = () => {
       });
     }
     setIsMenuOpen(false);
+    setIsHomeDropdownOpen(false);
   };
 
-  const handleTimelineClick = () => {
-    if (window.location.pathname === '/') {
-      scrollToSection('timeline');
+  const handleNavLinkClick = (targetPath, sectionId = null) => {
+    setIsMenuOpen(false);
+    setIsHomeDropdownOpen(false);
+
+    if (targetPath === location.pathname) {
+      if (sectionId === 'top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else if (sectionId) {
+        scrollToSection(sectionId);
+      }
     } else {
-      window.location.href = '/#timeline';
+      if (sectionId) {
+        window.location.href = `${targetPath}#${sectionId}`;
+      } else {
+        window.location.href = targetPath;
+      }
     }
   };
 
@@ -34,11 +49,7 @@ const Header = () => {
           <Link
             to="/"
             className="flex items-center space-x-1 sm:space-x-2"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = '/';
-              window.scrollTo({ top: 40, behavior: 'smooth' });
-            }}
+            onClick={() => handleNavLinkClick('/')}
           >
             <img
               src="/websitelogo_new.png"
@@ -54,19 +65,86 @@ const Header = () => {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/timeline" className="font-bold text-lg text-gray-300 hover:text-white transition-colors">
+          <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
+            {/* Home Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => {
+                if (dropdownTimeoutRef.current) clearTimeout(dropdownTimeoutRef.current);
+                setIsHomeDropdownOpen(true);
+              }}
+              onMouseLeave={() => {
+                dropdownTimeoutRef.current = setTimeout(() => {
+                  setIsHomeDropdownOpen(false);
+                }, 150);
+              }}
+            >
+              <Link
+                to="/"
+                onClick={() => handleNavLinkClick('/')}
+                className="font-bold text-base lg:text-lg text-gray-300 hover:text-white transition-colors"
+              >
+                Home
+              </Link>
+              {isHomeDropdownOpen && (
+                <div className="absolute left-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-20 border border-gray-700">
+                  <Link
+                    to="/"
+                    onClick={() => handleNavLinkClick('/', 'why-accelerate')}
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Why AI-First
+                  </Link>
+                  <Link
+                    to="/"
+                    onClick={() => handleNavLinkClick('/', 'two-prongs-section')}
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    How will it work
+                  </Link>
+                  <Link
+                    to="/"
+                    onClick={() => handleNavLinkClick('/', 'sprint-problems')}
+                    className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-white"
+                  >
+                    Sprint 1 Problem Statements
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <Link
+              to="/timeline"
+              onClick={() => handleNavLinkClick('/timeline')}
+              className="font-bold text-base lg:text-lg text-gray-300 hover:text-white transition-colors"
+            >
               Timeline
             </Link>
-            <Link to="/win-formula" className="font-bold text-lg text-gray-300 hover:text-white transition-colors">
-              How You Win
+            <Link
+              to="/win-formula"
+              onClick={() => handleNavLinkClick('/win-formula')}
+              className="font-bold text-base lg:text-lg text-gray-300 hover:text-white transition-colors"
+            >
+              Sprints
             </Link>
-            <Link to="/faq" className="font-bold text-lg text-gray-300 hover:text-white transition-colors">
+            <Link
+              to="/training-resources"
+              onClick={() => handleNavLinkClick('/training-resources')}
+              className="font-bold text-base lg:text-lg text-gray-300 hover:text-white transition-colors"
+            >
+              Training & Resources
+            </Link>
+            <Link
+              to="/faq"
+              onClick={() => handleNavLinkClick('/faq')}
+              className="font-bold text-base lg:text-lg text-gray-300 hover:text-white transition-colors"
+            >
               FAQ
             </Link>
             <Link
               to="/submit-use-case"
-              className="text-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
+              onClick={() => handleNavLinkClick('/submit-use-case')}
+              className="text-base bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-1.5 rounded-lg font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
             >
               Join the Sprint!
             </Link>
@@ -85,36 +163,43 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden border-t border-gray-800 px-2 pt-2 pb-3 space-y-1">
             <Link
+              to="/"
+              onClick={() => handleNavLinkClick('/')}
+              className="block text-lg text-gray-300 hover:text-white font-bold py-2"
+            >
+              Home
+            </Link>
+            <Link
               to="/timeline"
-              onClick={() => setIsMenuOpen(false)}
-              className="block text-lg text-gray-300 hover:text-white font-bold"
+              onClick={() => handleNavLinkClick('/timeline')}
+              className="block text-lg text-gray-300 hover:text-white font-bold py-2"
             >
               Timeline
             </Link>
             <Link
               to="/win-formula"
-              onClick={() => setIsMenuOpen(false)}
-              className="block text-lg text-gray-300 hover:text-white font-bold"
+              onClick={() => handleNavLinkClick('/win-formula')}
+              className="block text-lg text-gray-300 hover:text-white font-bold py-2"
             >
-              How You Win
+              Sprints
             </Link>
             <Link
-              to="/case-studies"
-              onClick={() => setIsMenuOpen(false)}
-              className="block text-lg text-gray-300 hover:text-white font-bold"
+              to="/training-resources"
+              onClick={() => handleNavLinkClick('/training-resources')}
+              className="block text-lg text-gray-300 hover:text-white font-bold py-2"
             >
-              Featured Case Studies
+              Training & Resources
             </Link>
             <Link
               to="/faq"
-              onClick={() => setIsMenuOpen(false)}
-              className="block text-lg text-gray-300 hover:text-white font-bold"
+              onClick={() => handleNavLinkClick('/faq')}
+              className="block text-lg text-gray-300 hover:text-white font-bold py-2"
             >
               FAQ
             </Link>
             <Link
               to="/submit-use-case"
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => handleNavLinkClick('/submit-use-case')}
               className="block w-full text-center px-4 py-3 mt-3 mx-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold"
             >
               Join the Sprint!

@@ -21,25 +21,31 @@ interface FormData {
   dataSource: 'standard' | 'own' | '';
 }
 
-// Define the problem statements as provided in the previous turn
+// Updated problem statements to match Features.tsx
 const problemStatements = [
   {
     id: 'A',
-    title: 'The Formal Meeting Cycle',
+    title: 'Formal Meeting Efficiency',
+    intro: "Ever feel like your post-meeting hours are just swallowed up by the tedious process of transcribing audio and meticulously drafting official minutes?",
+    challenge: "How might we help officers automate the creation of formal meeting minutes and action tracking? So they can focus on high-value strategic work instead of manual documentation.",
     input: '🎙️ Audio recording of official (closed) project meetings',
     workflow: '➡️ Transcript → Formal Minutes → Matters Arising',
     goal: '⚡ Drastically reduce time on admin, boost clarity & quality.',
   },
   {
     id: 'B',
-    title: 'The Informal Meeting Cycle',
+    title: 'Informal Meeting Follow-ups',
+    intro: "Great ideas often spark in informal chats, but turning those spontaneous discussions into concrete next steps can feel like a mountain of manual work.",
+    challenge: "How might we enable officers to capture and convert informal conversations into summaries, action items, and follow-ups? So they can keep momentum without spending hours on post-meeting tasks.",
     input: '🎙️ Audio recording of informal team syncs or brainstorming sessions',
     workflow: '➡️ Transcript → Summary → Action Items → Draft Follow-up Email',
     goal: '🚀 Streamline meeting follow-ups, ensuring quick execution.',
   },
   {
     id: 'C',
-    title: 'The Reporting Cycle',
+    title: 'Data-Driven Reporting',
+    intro: "Struggling to effectively transform complex raw data into compelling reports and presentations that capture leadership's attention and ignite change?",
+    challenge: "How might we empower officers to turn raw data into polished decks and insightful reports? So leadership can make fast, data-informed decisions with confidence.",
     input: '📊 Anonymized G2E survey results (CSV)',
     workflow: '➡️ Analysis & Insights → Key Charts → Draft Summary Slides',
     goal: '💡 Rapidly transform raw data into decision-ready insights.',
@@ -434,29 +440,26 @@ const HackathonForm = () => {
                         <span className="font-semibold text-white">
                           Problem {p.id}: {p.title}
                         </span>
-                        <p className="text-gray-400 text-xs italic">{p.goal}</p>
+                        <p className="text-gray-400 text-xs italic mt-1">{p.intro}</p>
                       </label>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Display selected problem details (read-only) */}
+              {/* MODIFIED SECTION: Display selected problem details (read-only) */}
               {selectedProblemForDisplay && (
-                <div className="bg-gray-800 rounded-lg p-4 border border-gray-700 space-y-3">
-                  <h4 className="text-lg font-semibold text-white">Selected Problem Details:</h4>
-                  <div>
-                    <p className="text-sm font-medium text-blue-400">Input:</p>
-                    <p className="text-sm text-gray-300">{selectedProblemForDisplay.input}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-purple-400">Workflow:</p>
-                    <p className="text-sm text-gray-300">{selectedProblemForDisplay.workflow}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-cyan-400">Goal:</p>
-                    <p className="text-sm text-gray-300">{selectedProblemForDisplay.goal}</p>
-                  </div>
+                <div className="bg-gray-800 rounded-lg p-6 border border-gray-700 space-y-4">
+                    <h4 className="text-lg font-semibold text-white">
+                        Problem {selectedProblemForDisplay.id} Details
+                    </h4>
+                    
+                    {/* The challenge text without the "The Challenge:" label */}
+                    <div className="bg-black rounded-lg p-4 border border-gray-600">
+                        <p className="text-white leading-relaxed">{selectedProblemForDisplay.challenge}</p>
+                    </div>
+
+                    {/* The Input/Workflow/Goal sections have been removed as requested */}
                 </div>
               )}
 

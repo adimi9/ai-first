@@ -7,7 +7,7 @@ import DriveInnovationPage from './pages/DriveInnovationPage'
 import WorkSmarterPage from './pages/WorkSmarterPage'
 import FAQPage from './pages/FAQPage'
 import CaseStudies from './pages/CaseStudies'
-import DepartmentDashboard from './components/DepartmentDashboard'
+import DepartmentDashboard from './pages/DashboardPage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import CaseStudiesPage from './pages/CaseStudies';
 import ScrollToTop from './components/ui/ScrollToTop'
@@ -19,6 +19,8 @@ import WinFormula from './pages/WinFormula'
 
 // teams formed page 
 import TeamsFormedPage from './pages/TeamsFormedPage'
+import SprintsPage from './pages/SprintsPage'
+import TrainingAndResources from './pages/TrainingAndResources'
 
 
 function App() {
@@ -41,8 +43,15 @@ function App() {
           <Route path="/case-studies/:id" element={<CaseStudyDetailPage />} />
 
 
-          {/* Timeline Page */}
+          {/* Timeline */}
           <Route path="/timeline" element={<TimelinePage />} />
+
+          {/* Sprints */}
+          <Route path="/sprints" element={<SprintsPage />} />
+
+          {/* Training Resources */}
+          <Route path="/training-resources" element={<TrainingAndResources />} />
+          
           
 
 

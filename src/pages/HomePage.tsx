@@ -7,6 +7,7 @@ import Timeline from '../components/Timeline'
 import Prizes from '../components/Prizes'
 import Footer from '../components/Footer'
 import WhyAccelerate from '../components/WhyAccelerate'
+import TwoProngs from '../components/TwoProngs'
 
 const HomePage = () => {
   useEffect(() => {
@@ -31,6 +32,7 @@ const HomePage = () => {
       <Header />
       <Hero />
       <WhyAccelerate/>
+      <TwoProngs />
       <Features />
       <Footer />
     </>
